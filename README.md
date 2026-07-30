@@ -1,40 +1,31 @@
 # CNN_ht
 hardware trojan in CNN
 
-AXI-Lite (CPU)
-      │
-      ▼
-axi_lite_wrapper
-      │
-      ├── weightValue / weightValid
-      ├── biasValue / biasValid
-      ├── config_layer_num
-      ├── config_neuron_num
-      └── softReset
+## Architecture Overview
 
-AXI-Stream input
-axis_in_data + axis_in_data_valid
-      │
-      ▼
-Layer_1
-      │
-      ▼
-State machine 1 (parallel → serial)
-      │
-      ▼
-Layer_2
-      │
-      ▼
-State machine 2
-      │
-      ▼
-Layer_3
-      │
-      ▼
-State machine 3
-      │
-      ▼
-Layer_4
-      │
-      ├── maxFinder ──► out / out_valid / intr
-      └── AXI read path (axi_rd_data)
+```mermaid
+flowchart TD
+    CPU["AXI-Lite (CPU)"] --> ALW["axi_lite_wrapper"]
+
+    ALW --> W["weightValue / weightValid"]
+    ALW --> B["biasValue / biasValid"]
+    ALW --> C1["config_layer_num"]
+    ALW --> C2["config_neuron_num"]
+    ALW --> SR["softReset"]
+
+    IN["AXI-Stream input<br/>axis_in_data + axis_in_data_valid"] --> L1["Layer_1"]
+
+    L1 --> SM1["State Machine 1<br/>(parallel → serial)"]
+    SM1 --> L2["Layer_2"]
+
+    L2 --> SM2["State Machine 2<br/>(parallel → serial)"]
+    SM2 --> L3["Layer_3"]
+
+    L3 --> SM3["State Machine 3<br/>(parallel → serial)"]
+    SM3 --> L4["Layer_4"]
+
+    L4 --> MF["maxFinder"]
+    MF --> OUT["out / out_valid / intr"]
+
+    L4 --> AXIR["AXI read path<br/>(axi_rd_data)"]
+```
