@@ -1,6 +1,8 @@
 # CNN_ht
 hardware trojan in CNN
+## Architecture Overview
 
+![Architecture Diagram](fig/arch.png)
 ## Architecture Overview
 
 ```mermaid
