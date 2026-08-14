@@ -1,5 +1,5 @@
-# CNN_ht
-hardware trojan in CNN
+# CNN_FCNN
+hardware trojan in Fully Connected neural Network
 ## Architecture Overview
 
 ![Architecture Diagram](fig/arch.png)
